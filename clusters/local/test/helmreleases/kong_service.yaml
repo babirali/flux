@@ -1,0 +1,9 @@
+apiVersion: gateway.konghq.com/v1alpha1
+kind: KongService
+metadata:
+  name: echo-service
+  namespace: kong
+spec:
+  host: echo.kong.svc.cluster.local
+  port: 80
+  protocol: http

@@ -1,0 +1,16 @@
+apiVersion: gateway.konghq.com/v1alpha1
+kind: KongRoute
+metadata:
+  name: echo-route
+  namespace: kong
+spec:
+  paths:
+    - /echo
+  protocols:
+    - http
+  methods:
+    - GET
+    - POST
+  stripPath: true
+  serviceRef:
+    name: echo-service
