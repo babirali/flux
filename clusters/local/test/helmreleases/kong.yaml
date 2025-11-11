@@ -87,7 +87,7 @@ spec:
 
     replicaCount: 3
     ingressController:
-      enabled: false
+      enabled: true
       admissionWebhooks:
         enabled: false
 
