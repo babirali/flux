@@ -88,6 +88,8 @@ spec:
     replicaCount: 3
     ingressController:
       enabled: false
+      admissionWebhooks:
+        enabled: false
 
     # nodeSelector:
     #   north: "1"
