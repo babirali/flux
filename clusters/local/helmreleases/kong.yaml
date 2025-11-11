@@ -1,108 +1,108 @@
-apiVersion: helm.toolkit.fluxcd.io/v2
-kind: HelmRelease
-metadata:
-  name: kong
-  namespace: kong
-spec:
-  interval: 10m
-  releaseName: kong
-  chart:
-    spec:
-      chart: kong
-      version: 2.52.0
-      sourceRef:
-        kind: HelmRepository
-        name: kong
-        namespace: flux-system
-  install:
-    createNamespace: true
-  values:
-    # env:
-    #   ssl_cert: /etc/secrets/kong-bundle-tls/tls.crt
-    #   ssl_cert_key: /etc/secrets/kong-bundle-tls/tls.key
+# apiVersion: helm.toolkit.fluxcd.io/v2
+# kind: HelmRelease
+# metadata:
+#   name: kong
+#   namespace: kong
+# spec:
+#   interval: 10m
+#   releaseName: kong
+#   chart:
+#     spec:
+#       chart: kong
+#       version: 2.52.0
+#       sourceRef:
+#         kind: HelmRepository
+#         name: kong
+#         namespace: flux-system
+#   install:
+#     createNamespace: true
+#   values:
+#     # env:
+#     #   ssl_cert: /etc/secrets/kong-bundle-tls/tls.crt
+#     #   ssl_cert_key: /etc/secrets/kong-bundle-tls/tls.key
 
-    # image:
-    #   repository: ${kong_image_registry}/${kong_image}
-    #   tag: "${kong_version}"
-    #   pullPolicy: IfNotPresent
-    admin:
-      enabled: true
-      type: ClusterIP
-      annotations: {}
-      labels: {}
-      http:
-        enabled: true
-        servicePort: 81
-        containerPort: 8001
-        parameters: []
-      tls:
-        enabled: false
-        servicePort: 444
-        containerPort: 8443
-        parameters:
-          - http2
-      ingress:
-        enabled: false
-        ingressClassName:
-        hostname:
-        annotations: {}
-        path: /
-        pathType: ImplementationSpecific
+#     # image:
+#     #   repository: ${kong_image_registry}/${kong_image}
+#     #   tag: "${kong_version}"
+#     #   pullPolicy: IfNotPresent
+#     admin:
+#       enabled: true
+#       type: ClusterIP
+#       annotations: {}
+#       labels: {}
+#       http:
+#         enabled: true
+#         servicePort: 81
+#         containerPort: 8001
+#         parameters: []
+#       tls:
+#         enabled: false
+#         servicePort: 444
+#         containerPort: 8443
+#         parameters:
+#           - http2
+#       ingress:
+#         enabled: false
+#         ingressClassName:
+#         hostname:
+#         annotations: {}
+#         path: /
+#         pathType: ImplementationSpecific
 
-    status:
-      enabled: true
-      http:
-        enabled: true
-        containerPort: 8100
-        parameters: []
+#     status:
+#       enabled: true
+#       http:
+#         enabled: true
+#         containerPort: 8100
+#         parameters: []
 
-    proxy:
-      enabled: true
-      type: LoadBalancer
-      labels:
-        enable-metrics: "true"
-      # annotations:
-      #   metallb.universe.tf/loadBalancerIPs: ${kong_service_ip}
-      http:
-        enabled: false
-        servicePort: 80
-        containerPort: 8000
-        parameters: []
-      tls:
-        enabled: false
-        servicePort: 443
-        containerPort: 8443
-        parameters:
-          - http2
-      stream: []
+#     proxy:
+#       enabled: true
+#       type: LoadBalancer
+#       labels:
+#         enable-metrics: "true"
+#       # annotations:
+#       #   metallb.universe.tf/loadBalancerIPs: ${kong_service_ip}
+#       http:
+#         enabled: false
+#         servicePort: 80
+#         containerPort: 8000
+#         parameters: []
+#       tls:
+#         enabled: false
+#         servicePort: 443
+#         containerPort: 8443
+#         parameters:
+#           - http2
+#       stream: []
 
-    ## TODO
-    # secretVolumes: [${kong_secret_name}]
+#     ## TODO
+#     # secretVolumes: [${kong_secret_name}]
 
-    # dblessConfig:
-    #   configMap: ${kong_configmap}
+#     # dblessConfig:
+#     #   configMap: ${kong_configmap}
 
-    postgresql:
-      enabled: false
+#     postgresql:
+#       enabled: false
 
-    replicaCount: 3
-    ingressController:
-      enabled: false
-      admissionWebhooks:
-        enabled: false
+#     replicaCount: 3
+#     ingressController:
+#       enabled: false
+#       admissionWebhooks:
+#         enabled: false
 
-    # nodeSelector:
-    #   north: "1"
+#     # nodeSelector:
+#     #   north: "1"
 
-    # affinity:
-    #   podAntiAffinity:
-    #     preferredDuringSchedulingIgnoredDuringExecution:
-    #       - weight: 100
-    #         podAffinityTerm:
-    #           labelSelector:
-    #             matchExpressions:
-    #               - key: app
-    #                 operator: In
-    #                 values:
-    #                   - kong-kong
-    #           topologyKey: kubernetes.io/hostname
+#     # affinity:
+#     #   podAntiAffinity:
+#     #     preferredDuringSchedulingIgnoredDuringExecution:
+#     #       - weight: 100
+#     #         podAffinityTerm:
+#     #           labelSelector:
+#     #             matchExpressions:
+#     #               - key: app
+#     #                 operator: In
+#     #                 values:
+#     #                   - kong-kong
+#     #           topologyKey: kubernetes.io/hostname
