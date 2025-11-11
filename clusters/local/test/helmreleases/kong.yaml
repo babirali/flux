@@ -89,7 +89,7 @@ spec:
     ingressController:
       enabled: true
       admissionWebhooks:
-        enabled: false
+        enabled: true
 
     # nodeSelector:
     #   north: "1"
